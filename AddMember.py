@@ -1,29 +1,43 @@
 from tkinter import *
 from tkinter import ttk
+import sqlite3
 
+conn = sqlite3.connect('member.db')
+
+c = conn.cursor()
 
 def submitMember(*args):
+
     try:
-        if  firstName.get == "" :
-            ttk.Label(mainframe, text=validationText).grid(column=1, row=8, sticky=W, columnwidth=3)
-            pass
-        print(firstName.get())
-        print(lastName.get())
-        print(primaryPhone.get())
-        print(canText.get())
-        print(primaryEmail.get())
-        print(sex.get())
-        print(marriedStatus.get())
-
-
+        # print (firstName)
+        # print (lastName)
+        print('entered try')
+        if  not firstName.get():
+            statusLabel.config(text = 'Please supply a First Name!')
+        elif  not lastName.get():
+            statusLabel.config(text = 'Please supply a Last Name!')
+        elif  not primaryPhone.get():
+            statusLabel.config(text = 'Please supply a Phone Number or write None!')
+        elif  not primaryEmail.get():
+            statusLabel.config(text = 'Please supply a Email or write None!')
+        elif  not canText.get():
+            statusLabel.config(text = 'Please select a text status!')
+        elif  not sex.get():
+            statusLabel.config(text = 'Please select the sex!')
+        elif  not marriedStatus.get():
+            statusLabel.config(text = 'Please select the marital status. Choose Single if unknown!')
+        else:
+            statusLabel.config(text = 'All Criteria Valid')
+            print('firstName:',firstName.get(),'aa')
+            print('lastName:',lastName.get())
+            print('primaryphone:',primaryPhone.get())
+            print('text:',canText.get())
+            print('email:',primaryEmail.get())
+            print('sex:',sex.get())
+            print('marriedstatus:',marriedStatus.get())
     except ValueError:
         pass
 
-def validateEntries
-    try:
-        pass
-    except expression as identifier:
-        pass
 
 root = Tk()
 root.title("Add a New Member")
@@ -40,8 +54,6 @@ canText = StringVar()
 primaryEmail = StringVar()
 sex= StringVar()
 marriedStatus = StringVar()
-
-
 
 firstName_entry = ttk.Entry(mainframe, width=12, textvariable=firstName)
 firstName_entry.grid(column=2, row=1, sticky=(W, E))
@@ -60,7 +72,6 @@ sexBtn1.grid(column=2, row=6, sticky=(W, E))
 sexBtn2 = ttk.Radiobutton(mainframe, text='Female', variable=sex, value='female')
 sexBtn2.grid(column=3, row=6, sticky=(W, E))
 
-
 #marriedStatusCmb = ttk.Entry(mainframe, width=7, textvariable=marriedStatus)
 marriedStatusCmb = ttk.Combobox(mainframe, state="readonly", textvariable=marriedStatus, values = ('Single', 'Engaged', 'Married', 'Divorced'))
 #marriedStatusCmb.values = ('Single', 'Engaged', 'Married', 'Divorced')
@@ -74,10 +85,9 @@ ttk.Label(mainframe, text="Can Text?").grid(column=1, row=5, sticky=W)
 ttk.Label(mainframe, text="Sex").grid(column=1, row=6, sticky=W)
 ttk.Label(mainframe, text="Married?").grid(column=1, row=7, sticky=W)
 
-
+statusLabel = ttk.Label(mainframe, text = 'Please fill in the fields')
+statusLabel.grid(column=1, row=8, columnspan=3, sticky=(W,E))
 ttk.Button(mainframe, text="Save Member", command=submitMember).grid(column=2, row=9, sticky=(W,E),columnspan=2)
-
-
 
 for child in mainframe.winfo_children(): child.grid_configure(padx=5, pady=5)
 #lines that I might need in some form shortly
@@ -85,3 +95,4 @@ for child in mainframe.winfo_children(): child.grid_configure(padx=5, pady=5)
 root.bind('<Return>', submitMember)
 
 root.mainloop()
+print('passed mainloop')
