@@ -1,10 +1,5 @@
 from tkinter import *
 from tkinter import ttk
-import sqlite3
-
-conn = sqlite3.connect('member.db')
-
-c = conn.cursor()
 
 def submitMember(*args):
 
@@ -28,16 +23,9 @@ def submitMember(*args):
             statusLabel.config(text = 'Please select the marital status. Choose Single if unknown!')
         else:
             statusLabel.config(text = 'All Criteria Valid')
-            print('firstName:',firstName.get(),'aa')
-            print('lastName:',lastName.get())
-            print('primaryphone:',primaryPhone.get())
-            print('text:',canText.get())
-            print('email:',primaryEmail.get())
-            print('sex:',sex.get())
-            print('marriedstatus:',marriedStatus.get())
+            #!!!call the class to actually save this person to the DB. be sure to pass the relevant variables.
     except ValueError:
         pass
-
 
 root = Tk()
 root.title("Add a New Member")
